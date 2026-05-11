@@ -1,4 +1,4 @@
-## Bloque A: Análisis de Mercado y Selección (CE a, c)
+## Análisis de Mercado y Selección (CE a, c)
 
 Debéis elegir entre **Odoo (SaaS o Community)**, **SAP S/4HANA** o **Zoho One**.
 
@@ -29,7 +29,7 @@ Al utilizar Zoho One utiliza el modelo SaaS por lo que se trabaja directamente a
 
 **TOTAL: 1572€ en tres años**
 
-## Bloque B: Diseño de Seguridad RBAC (CE f)
+## Diseño de Seguridad RBAC (CE f)
 
 Diseña la matriz de permisos para los siguientes roles, asegurando el **Principio de Mínimo Privilegio**:
 
@@ -53,9 +53,9 @@ Diseña la matriz de permisos para los siguientes roles, asegurando el **Princip
 | Leer facturas | ✓ | X | X | ✓ |
 | Modificar facturas | ✓ | X | X | X |
 
-## Bloque C: Documentación de Explotación (CE i)
+## Documentación de Explotación (CE i)
 
-Siguiendo la norma **ISO/IEC 26514**, redacta un breve **Manual de Despliegue** para que el responsable de IT de la empresa pueda levantar el sistema en caso de caída. Debe incluir:
+Siguiendo la norma **ISO/IEC 26514** (Ingeniería de sistemas y software), redacta un breve **Manual de Despliegue** para que el responsable de IT de la empresa pueda levantar el sistema en caso de caída. Debe incluir:
 
 1. El fragmento de *docker-compose.yml* necesario.  
 2. El comando para realizar un backup de la base de datos PostgreSQL.
