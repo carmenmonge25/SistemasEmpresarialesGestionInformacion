@@ -22,13 +22,13 @@ Si el cliente prefiere que todos los empleados tengan licencia se escogería el 
 
 * Coste de implantación (vuestras horas de desarrollo: estima 100h a 40€/h).
 
-**240€** puesto que al ofrecer varias aplicaciones generales no se necesitaría tanto tiempo de desarrollo, por lo que vamos considerar 100 horas para la personalizar las aplicaciones ajustándolo a las necesidades concretas de la empresa y Zoho One permite formar flujos de trabajo automatizaso. Esto equivale a 
+**4000€** puesto que al ofrecer varias aplicaciones generales no se necesitaría tanto tiempo de desarrollo, por lo que vamos considerar 100 horas para la personalizar las aplicaciones ajustándolo a las necesidades concretas de la empresa y Zoho One permite formar flujos de trabajo automatizaso. Esto incluye dicha especialización ajustado a las necesidades y especificaciones y el mantenimiento.
 
 * Coste operativo (Hosting en Google Cloud, AWS, Huawei Cloud o similar).
 
 Al utilizar Zoho One utiliza el modelo SaaS por lo que se trabaja directamente a internet 
 
-**TOTAL: 1572€ en tres años**
+**TOTAL: 7240€ en tres años**
 
 ## Diseño de Seguridad RBAC (CE f)
 
