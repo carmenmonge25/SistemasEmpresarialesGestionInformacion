@@ -5,7 +5,7 @@ Debéis elegir entre **Odoo (SaaS o Community)**, **SAP S/4HANA** o **Zoho One**
 1. Justifica la elección basándote en el perfil de la empresa (25 empleados, presupuesto ajustado, necesidad de personalización en el etiquetado).
 
 Tanto Odoo como Zoho One serían buenas opciones para empresas de 25 empleados con presupuesto ajustado, pero al necesitar personalización en el etiquetado nos hemos decantado por Zoho One, ya que permite la personalizar y adaptación dependiendo de las necesidades del negocio. Odoo es buena para personalizar gracias a la creación de módulos pero esto también puede hacer que el precio se dispare y aumente el tiempo de desarrollo de código de los programadores. 
-<div align="center">![logo Zoho One](Logo_Zoho_One.png)</div>
+![logo Zoho One](Logo_Zoho_One.png)
 
 2. **Cálculo de TCO:** Realiza una estimación a 3 años. No olvidéis incluir:  
    * Coste de licencias/suscripción.
