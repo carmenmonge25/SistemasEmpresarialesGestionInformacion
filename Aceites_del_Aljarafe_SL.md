@@ -1,28 +1,30 @@
-# Actividad Práctica – AEE
-
-## Desafío de Consultoría "Gobernanza Digital"
-
-* **Unidad:** UD7. Sistemas de Gestión Empresarial  
-* **Contexto:** RA7 (CE: a, c, f, i)  
-* **Investigación**. Se puede utilizar TODO en INTERNET, **menos agentes IA**. Se deben referenciar todas las fuentes utilizadas.
-
-# 1\. El Escenario (El "Por qué")
-
-La empresa sevillana **"Aceites del Aljarafe S.L."** opera actualmente con el "Efecto Silo": usan hojas de cálculo para el inventario, una base de datos Access antigua para clientes y facturan a mano. Han contratado a vuestro equipo de consultoría para migrar a un sistema profesional.
-
-# 2\. Misión del Equipo (Grupos de 3 personas)
-
-Vuestra tarea es entregar una **Propuesta Técnica de Implantación** que cubra los siguientes tres bloques fundamentales:
-
 ## Bloque A: Análisis de Mercado y Selección (CE a, c)
 
 Debéis elegir entre **Odoo (SaaS o Community)**, **SAP S/4HANA** o **Zoho One**.
 
-1. Justifica la elección basándote en el perfil de la empresa (25 empleados, presupuesto ajustado, necesidad de personalización en el etiquetado).  
+1. Justifica la elección basándote en el perfil de la empresa (25 empleados, presupuesto ajustado, necesidad de personalización en el etiquetado).
+
+Tanto Odoo como Zoho One serían buenas opciones para empresas de 25 empleados con presupuesto ajustado, pero al necesitar personalización en el etiquetado nos hemos decantado por Zoho One, ya que permite la personalizar y adaptación dependiendo de las necesidades del negocio. Odoo es buena para personalizar gracias a la creación de módulos pero esto también puede hacer que el precio se dispare y aumente el tiempo de desarrollo de código de los programadores.
+
 2. **Cálculo de TCO:** Realiza una estimación a 3 años. No olvidéis incluir:  
-   * Coste de licencias/suscripción.  
-   * Coste de implantación (vuestras horas de desarrollo: estima 100h a 40€/h).  
-   * Coste operativo (Hosting en Google Cloud, AWS, Huawei Cloud o similar).
+   * Coste de licencias/suscripción.
+
+| Plan | Precio mensual | Precio anual (por mes) | Condiciones |
+| :---: | :---: | :---: | :---: |
+| **Precio de usuario flexible** | 105€ por usuario | 90€ por usuario | Licencias individuales, sin necesidad de cubrir a todos los empleados. |
+| **Precio para todos los empleados** | 45€ por empleado | 37€ por empleado | Una única licencia para cada empleado de la empresa. |
+
+A no ser que el cliente concrete que va a querer que todos los empleados tengan licencia, se escogería por lo general el precio de usuario flexible, que al estar haciendo una estimación de 3 años escogeríamos el plan anual, por lo que el precio estimado total sería de **1080€ por empleado** al año, por lo que tres años sería **3240€ por empleado**.
+
+Si el cliente prefiere que todos los empleados tengan licencia se escogería el precio para todos los empleados escogeríamos el precio anual, por lo que serían **444€ al año por empleado**, por lo que en tres años serían 1332**€ por empleado**
+
+* Coste de implantación (vuestras horas de desarrollo: estima 100h a 40€/h).
+
+**40€** puesto que al ofrecer varias aplicaciones generales no se necesitaría tanto tiempo de desarrollo, por lo que vamos considerar 100 horas para la personalizar las aplicaciones ajustándolo a las necesidades concretas de la empresa y Zoho One permite formar flujos de trabajo automatizaso.
+
+* Coste operativo (Hosting en Google Cloud, AWS, Huawei Cloud o similar).
+
+Al utilizar Zoho One utiliza el modelo SaaS por lo que se trabaja directamente a internet
 
 ## Bloque B: Diseño de Seguridad RBAC (CE f)
 
@@ -33,6 +35,21 @@ Diseña la matriz de permisos para los siguientes roles, asegurando el **Princip
 * **Operario de Almacén:** Solo ve stock y albaranes de entrada/salida.  
 * **Contable:** Puede mirar facturas pero no puede modificar el stock.
 
+|  | Administrador | Comercial | Operario de Almacén | Contable |
+| :---- | :---: | :---: | :---: | :---: |
+| Leer clientes | ✓ | ✓ | X | X |
+| Modificar clientes | ✓ | X | X | X |
+| Leer presupuestos | ✓ | ✓ | X | X |
+| Modificar presupuestos | ✓ | X | X | X |
+| Leer stock | ✓ | X | ✓ | X |
+| Modificar stock | ✓ | X | X | X |
+| Leer albaranes de entrada | ✓ | X | ✓ | X |
+| Modificar albaranes de entrada | ✓ | X | X | X |
+| Leer albaranes de salida | ✓ | X | ✓ | X |
+| Modificar albaranes de salida | ✓ | X | X | X |
+| Leer facturas | ✓ | X | X | ✓ |
+| Modificar facturas | ✓ | X | X | X |
+
 ## Bloque C: Documentación de Explotación (CE i)
 
 Siguiendo la norma **ISO/IEC 26514**, redacta un breve **Manual de Despliegue** para que el responsable de IT de la empresa pueda levantar el sistema en caso de caída. Debe incluir:
@@ -40,36 +57,86 @@ Siguiendo la norma **ISO/IEC 26514**, redacta un breve **Manual de Despliegue** 
 1. El fragmento de *docker-compose.yml* necesario.  
 2. El comando para realizar un backup de la base de datos PostgreSQL.
 
-# 3\. Entregable y Evaluación
+El sistema está construido en **Docker Compose**. Archivo *docker-compose.yml:*
 
-Subirás un README a un repositorio Github específico con la propuesta técnica. Lo importante aquí es la **precisión técnica**:
+version: '3.8'
 
-* ¿Es coherente el TCO con la realidad de una PYME?  
-* ¿La matriz RBAC evita que el comercial vea los costes de producción?  
-* ¿El comando de backup es sintácticamente correcto?
+services:
 
-# 4\. Cronograma de la Actividad
+  db\_zoho\_backup:  
+    image: postgres:15  
+    container\_name: lab\_zoho\_db  
+    environment:  
+      \- PUID=1000  
+      \- PGID=1000  
+      \- TZ=Europe/Madrid  
+      \- POSTGRES\_DB=zoho\_local  
+      \- POSTGRES\_USER=admin\_zoho  
+      \- POSTGRES\_PASSWORD=sistemas\_informaticos  
+    ports:  
+      \- "5432:5432"  
+    restart: unless-stopped
 
-* **08:30 \- 08:50 min:** Explicación del caso y formación de grupos (Willman).  
-* **08:50 \- 09:40 min:** Trabajo de investigación y redacción (Uso de Odoo y búsqueda de TCO).  
-* **09:40 \- 10:25 min:** "*Elevator Pitch*": Cada grupo defiende su elección de ERP frente al "Cliente" (Willman).
+  zoho\_agent:  
+    image: linuxserver/webtop:ubuntu-xfce  
+    container\_name: lab\_zoho\_conector  
+    environment:  
+      \- PUID=1000  
+      \- PGID=1000  
+      \- TZ=Europe/Madrid  
+    ports:  
+      \- "3000:3000"   
+    shm\_size: "1gb"  
+    restart: unless-stopped
 
-# 5\. Rúbrica de Evaluación
+Para hacer un **backup**:
 
-| Criterio de Evaluación | Sobresaliente (10-9) | Notable(8-7) | Aprobado(6-5) | Insuficiente(4-0) | Peso |
-| ----- | ----- | ----- | ----- | ----- | :---: |
-| **Análisis y Selección de ERP (CE a, c)** | Selecciona el sistema ideal justificando con precisión técnica y estratégica según las necesidades de la PYME. | Selecciona el sistema adecuado con una justificación clara pero con pocos detalles técnicos. | La selección es aceptable pero la justificación es genérica o poco adaptada al caso. | No justifica la selección o elige un sistema claramente inadecuado para el escenario. | 18% |
-| **Cálculo de TCO (CE c)** | Realiza un cálculo quirúrgico a 3 años incluyendo licencias, horas de desarrollo y hosting con datos reales. | Calcula el TCO incluyendo los bloques principales, aunque con pequeñas imprecisiones en los costes operativos. | El cálculo es muy básico y omite costes indirectos importantes (mantenimiento o backups). | No realiza el cálculo de TCO o los datos son totalmente incoherentes con el mercado. | 18% |
-| **Diseño RBAC y Seguridad (CE f)** | Define una matriz de permisos perfecta que cumple estrictamente el principio de mínimo privilegio y usa Record Rules. | Define la matriz correctamente para todos los roles, aunque la restricción del comercial es mejorable. | La matriz es funcional pero asigna permisos excesivos a roles que no los requieren. | No define roles o la matriz permite acceso total a personal no autorizado (riesgo de seguridad). | 18% |
-| **Doc. de Explotación e ISO 26514 (CE i)** | Documentación profesional con *docker-compose.yml* y comandos de backup 100% funcionales y sintácticamente correctos. | Documentación clara siguiendo la norma ISO, con comandos funcionales pero con errores leves de formato. | Incluye la documentación mínima pero los comandos requieren ajustes para ser funcionales. | Documentación inexistente, desorganizada o con comandos que generan errores críticos. | 18% |
-| **Organización del repositorio Github** **(Competencia Transversal)** | Organización profesional, README con imágenes y bien “estilizado” | Organización profesional, README con imágenes | Organización profesional y README | Sin organización aunque tenga README | 14% |
-| **Presentación y Pitch** **(Competencia Transversal)** | Defiende la propuesta con seguridad, lenguaje técnico preciso y convence al "cliente" de la viabilidad. | Presentación clara y profesional, respondiendo bien a la mayoría de las dudas técnicas. | Exposición correcta pero con dificultades para defender los puntos financieros (TCO). | No es capaz de explicar la propuesta o utiliza un lenguaje poco profesional. | 14% |
-| **Uso de agentes IA** | Incluyendo Google, Bing, etc. “Modo IA” |  |  |  | **\-100%** |
+**Asegurarse como se ven los datos:** 
 
-### **Observaciones:**
+SELECT \* FROM customers;
 
-* **CE a y c:** Se ha valorado especialmente que no solo elijas Odoo por ser el que usamos en clase, sino que demuestres conocer las alternativas.  
-* **CE f:** Lo importante aquí es que el comercial no pueda "asomarse" a la contabilidad.  
-* **CE i:** Un comando de backup mal escrito es un suspenso directo en este bloque, fíjate que la integridad del dato no admite errores de sintaxis.  
-* **Evaluación de competencias**. Una vez hayas leído toda la actividad y sepas qué vas a hacer, levántate y desde tu puesto dile al profesor que has comprendido la actividad, los nombres de los integrantes del grupo y el profesor te dará el “Ok“ para comenzar. Si no lo haces, el profesor evaluará qué has hecho y si comienzas de nuevo o continúas.
+**Si desea realizar copias de seguridad y restaurar la base de datos rápidamente entre varios servidores, ingrese lo siguiente:**
 
+pg\_dump \-h 78.43.11.2 db\_name | psql \-h 72.43.11.2 db\_name
+
+La primera parte permitió conectarse al servidor con db y utilizar la salida de redirección de tubería al servidor de destino con un comando después de un signo separado.
+
+**Y usando el comando scp podemos transferir db:**
+
+scp ./backup.sql root@94.141.98.9:/
+
+**Deberíamos crear una base de datos y restaurar el contenido con el siguiente comando:**
+
+CREATE DATABASE db12;
+
+**Luego restaure con el comando psql:**
+
+psql \-U postgres \-d db12 \< backup.sql
+
+Si la base de datos tiene **muchos datos** y un **gran tamaño**, utilice **split** y **utilidad zip** para transferir piezas de datos:
+
+pg\_dump name\_db | gzip \> name\_archive.gz
+
+gunzip \-c name\_archive.gz | psql name\_db
+
+Y dividir con la siguiente sintaxis:
+
+pg\_dump name\_db | split \-b 4G \- name\_file
+
+cat name\_file | psql name\_db
+
+Eso ayuda a que la transferencia de datos sea más efectiva en el proceso de copia de seguridad.
+
+Referencias:  
+[https://www.cosmikal.es/principio-de-minimo-privilegio-least-privilege-enforcement-fundamento-tecnico-para-una-gestion-de-accesos-segura-y-sostenible/](https://www.cosmikal.es/principio-de-minimo-privilegio-least-privilege-enforcement-fundamento-tecnico-para-una-gestion-de-accesos-segura-y-sostenible/)  
+[https://www.ibm.com/docs/es/aix/7.3.0?topic=privileges-least-privilege-principle](https://www.ibm.com/docs/es/aix/7.3.0?topic=privileges-least-privilege-principle)  
+R. S. Sandhu, E. J. Coyne, H. L. Feinstein, y C. E. Youman, "Role-based access control models," IEEE Computer, vol. 29, no. 2, pp. 38-47, 1996\. \[Online\]. Disponible en:  
+[https://csrc.nist.gov/csrc/media/projects/role-based-access-control/documents/sandhu96.pdf](https://csrc.nist.gov/csrc/media/projects/role-based-access-control/documents/sandhu96.pdf)  
+[https://docs.google.com/document/d/16yClUUrFCrQCH9nQBI9hp701W2qQyvvTErRwTeUxk7c/edit?usp=sharing](https://docs.google.com/document/d/16yClUUrFCrQCH9nQBI9hp701W2qQyvvTErRwTeUxk7c/edit?usp=sharing)  
+[https://www.appvizer.com/magazine/operations/erp/zoho-vs-odoo](https://www.appvizer.com/magazine/operations/erp/zoho-vs-odoo)   
+[https://www.zoho.com/es-xl/one/pricing/](https://www.zoho.com/es-xl/one/pricing/)   
+[https://www.agenciareinicia.com/blog/zoho-one-caracteristicas-precio/\#que-incluye](https://www.agenciareinicia.com/blog/zoho-one-caracteristicas-precio/#que-incluye)   
+[https://serverspace.io/es/support/help/how-to-backup-and-restore-in-a-postgresql/](https://serverspace.io/es/support/help/how-to-backup-and-restore-in-a-postgresql/)
+
+Poner imagenes en el md:  
+\!\[Descripción de la imagen\](/images/picture.jpg) , referencia [https://denshub.com/es/hugo-post-insert-image/](https://denshub.com/es/hugo-post-insert-image/)  
