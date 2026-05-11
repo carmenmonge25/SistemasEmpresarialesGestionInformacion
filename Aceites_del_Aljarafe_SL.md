@@ -25,7 +25,9 @@ Si el cliente prefiere que todos los empleados tengan licencia se escogería el 
 
 * Coste operativo (Hosting en Google Cloud, AWS, Huawei Cloud o similar).
 
-Al utilizar Zoho One utiliza el modelo SaaS por lo que se trabaja directamente a internet
+Al utilizar Zoho One utiliza el modelo SaaS por lo que se trabaja directamente a internet 
+
+**TOTAL: 1572€ en tres años**
 
 ## Bloque B: Diseño de Seguridad RBAC (CE f)
 
